@@ -1,17 +1,11 @@
 import { AppProps } from 'next/dist/shared/lib/router/router'
-import NavBar from '../components/NavBar'
+import Layout from '../components/Layout'
 import "../styles/globals.css"
 
 export default function App({Component, pagesProps}: AppProps) {
   return (
-    <div>
-      <NavBar />
+    <Layout>
       <Component {...pagesProps} />
-      <style jsx global>{`
-        a {
-          color: white;
-        }
-      `}</style>
-    </div>
+    </Layout>
   )
 }
