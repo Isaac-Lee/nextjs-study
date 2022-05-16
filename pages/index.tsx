@@ -2,31 +2,48 @@ import { useEffect, useState } from "react";
 import Seo from "../components/Seo";
 import { MoviePopular, MoviePopularResult } from "../interface/Movie";
 
-const API_KEY = "b1a470629a41b7728b583f081d60a2ac";
-
 export default function Home() {
   const [movie, setMovie] = useState<MoviePopularResult[]>([])
   useEffect(() => {
     (async () => {
       const moviePopular: MoviePopular = await (
-        await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
-        )
+        await fetch("/api/movies")
       ).json();
-      console.log(moviePopular.results);
       setMovie(moviePopular.results);
     })();
   }, []);
   
   return (
-    <div>
+    <div className="container">
       <Seo title="Home" />
       {!movie && <h4>Loading...</h4>}
       {movie?.map((movie: MoviePopularResult) => (
-        <div key={movie.id}>
+        <div className="movie" key={movie.id}>
+          <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>{movie.original_title}</h4>
         </div>
       ))}
+      <style jsx>{`
+        .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          padding: 20px;
+          gap: 20px;
+        }
+        .movie img {
+          max-width: 100%;
+          border-radius: 12px;
+          transition: transform 0.2s ease-in-out;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        }
+        .movie:hover img {
+          transform: scale(1.05) translateY(-10px);
+        }
+        .movie h4 {
+          font-size: 18px;
+          text-align: center;
+        }
+      `}</style>
     </div>
   );
 }
