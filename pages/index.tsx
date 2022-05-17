@@ -7,14 +7,7 @@ import { useRouter } from "next/router";
 function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
   const router = useRouter();
   const onClick = (id: string, title: string) => {
-    router.push(
-      {
-        pathname: `/movies/${id}`,
-        query: {
-          title,
-        },
-      }, 
-      `/movies/${id}`,
+    router.push(`/movies/${title}/${id}`,
     );
   }
   return (
@@ -28,7 +21,7 @@ function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
         >
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>
-            <Link href={`/movies/${movie.id}`}>
+            <Link href={`/movies/${movie.original_title}/${movie.id}`}>
               <a>{movie.original_title}</a>
             </Link>
           </h4>
