@@ -1,11 +1,11 @@
-import { AppProps } from 'next/dist/shared/lib/router/router'
+import { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import "../styles/globals.css"
 
-export default function App({Component, pagesProps}: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-      <Component {...pagesProps} />
+      <Component {...pageProps} />
     </Layout>
   )
 }

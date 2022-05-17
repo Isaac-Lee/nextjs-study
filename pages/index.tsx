@@ -1,23 +1,13 @@
-import { useEffect, useState } from "react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Seo from "../components/Seo";
-import { MoviePopular, MoviePopularResult } from "../interface/Movie";
+import { IMoviePopularProps } from "../interface/Movie";
 
-export default function Home() {
-  const [movie, setMovie] = useState<MoviePopularResult[]>([])
-  useEffect(() => {
-    (async () => {
-      const moviePopular: MoviePopular = await (
-        await fetch("/api/movies")
-      ).json();
-      setMovie(moviePopular.results);
-    })();
-  }, []);
-  
+function Home({ results }: InferGetServerSidePropsType<GetServerSideProps>) {
+  console.log(results);
   return (
     <div className="container">
       <Seo title="Home" />
-      {!movie && <h4>Loading...</h4>}
-      {movie?.map((movie: MoviePopularResult) => (
+      {results?.map((movie: IMoviePopularProps) => (
         <div className="movie" key={movie.id}>
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>{movie.original_title}</h4>
@@ -47,3 +37,18 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getServerSideProps({}: GetServerSideProps) {
+  // we can put AIP KEY here
+  // the key will never show up
+  const { results } = await (
+    await fetch("http://localhost:3000/api/movies")
+  ).json();
+  return {
+    props: {
+      results,
+    },
+  }
+}
+
+export default Home;

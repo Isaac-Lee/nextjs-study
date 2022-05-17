@@ -1,6 +1,6 @@
 import { List } from "lodash"
 
-export interface MoviePopularResult {
+export interface IMoviePopularProps {
   poster_path: string | null,
   adult: boolean,
   overview: string,
@@ -17,9 +17,9 @@ export interface MoviePopularResult {
   vote_average: number,
 }
 
-export interface MoviePopular {
+export interface IMovieProps {
   page: number
-  results: MoviePopularResult[]
+  results: IMoviePopularProps[]
   total_result: number
   total_pages: number
 }
