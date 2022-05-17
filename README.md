@@ -15,4 +15,9 @@ example app built with Next.js w/ typescript
 - Practice Project
   - Fetching Data
   - Patterns
-  - ...
+  - Redirect & Rewrite
+  - Server Side Redering
+  - Dynamic Routes
+  - URL Query
+  - Catch All
+  - 404 Pages
